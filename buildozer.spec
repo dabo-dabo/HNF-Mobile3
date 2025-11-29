@@ -1,0 +1,35 @@
+name: Build HNF Android APK
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      # 1. تحرير مساحة على السيرفر
+      - name: Free Disk Space
+        run: |
+          sudo swapoff -a
+          sudo rm -f /swapfile
+          sudo apt clean
+          docker rmi $(docker image ls -aq)
+          df -h
+
+      # 2. بناء التطبيق باستخدام Buildozer
+      - name: Build with Buildozer
+        uses: ArtemSBulgakov/buildozer-action@v1
+        id: buildozer
+        with:
+          command: buildozer android debug
+          buildozer_version: master
+
+      # 3. رفع ملف APK الناتج
+      - name: Upload APK
+        uses: actions/upload-artifact@v2
+        with:
+          name: HNF-Miner-APK
+          path: bin/*.apk
