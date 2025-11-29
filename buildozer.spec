@@ -19,7 +19,7 @@ source.include_exts = py,png,jpg,kv,atlas,json
 version = 0.1
 
 # (list) Application requirements
-requirements = python3,kivy==2.2.1,kivymd,ecdsa,psutil,cryptography,openssl
+requirements = python3,kivy==2.2.1,kivymd,ecdsa,psutil,cryptography,openssl,cffi,libffi
 
 # (list) Supported orientations
 orientation = portrait
@@ -58,3 +58,4 @@ log_level = 2
 
 # (int) Display warning if buildozer is run as root
 warn_on_root = 1
+
